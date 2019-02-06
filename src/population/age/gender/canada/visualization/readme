@@ -1,1 +1,2 @@
 This package include all modules of visualizaitons for the population such as line chart and bar chart.
+Tableview builder is for initializing a table view based on the type of the parameter.
