@@ -61,6 +61,7 @@ public class Population_Canada_Analyze extends Application {
 		ScrollPane sp = new ScrollPane();
 		VBox vb = new VBox();
 		HBox hb = new HBox();
+		
 		hb.setSpacing(10);
 		hb.setPadding(new Insets(10));
 		hb.setStyle("-fx-background-color: #ffffff;" + "-fx-border-style:solid inside;" + "-fx-border-width:3;");
@@ -68,15 +69,16 @@ public class Population_Canada_Analyze extends Application {
 		hb.getChildren().add(agePaneOnHomePage());
 		hb.getChildren().add(GEOPaneOnHomePage());
 		hb.getChildren().add(genderPaneOnHomePage());
+		sp.setContent(hb);
+		sp.setFitToWidth(true);
 		
 		Text text = new Text(TITLE);
 		text.setFont(Font.font(14));
 		vb.getChildren().add(text);
-		vb.getChildren().add(hb);
-		sp.setContent(vb);
-		sp.setFitToWidth(true);
-
-		return sp;
+		vb.getChildren().add(sp);
+		
+		return vb;
+		
 	}
 
 	private Node agePaneOnHomePage() {
