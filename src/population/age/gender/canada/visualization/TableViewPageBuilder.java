@@ -49,7 +49,7 @@ public class TableViewPageBuilder extends VBox {
 	}
 
 	private void TablePageOfYear() {
-
+		button.setMaxWidth(800);
 		button.setOnAction(new YearVisualization(year, numbers, medians));
 		this.getChildren().add(button);
 		this.getChildren().add(new TableViewOfYear<PopulationProperties>(year, numbers, medians));
@@ -57,7 +57,7 @@ public class TableViewPageBuilder extends VBox {
 	}
 
 	private void TablePageOfAgegroup() {
-
+		button.setMaxWidth(800);
 		button.setOnAction(new AgeVisualization(value, numbers, medians));
 		this.getChildren().add(button);
 		this.getChildren().add(new TableViewOfAge<PopulationProperties>(value, numbers, medians));
@@ -65,14 +65,14 @@ public class TableViewPageBuilder extends VBox {
 	}
 
 	private void TablePageOfGender() {
-
+		button.setMaxWidth(800);
 		button.setOnAction(new GenderVisualization(value, numbers, medians));
 		this.getChildren().add(button);
 		this.getChildren().add(new TableViewOfGender<PopulationProperties>(value, numbers, medians));
 	}
 
 	private void TablePageOfGeo() {
-
+		button.setMaxWidth(800);
 		button.setOnAction(new GeoVisualization(value, numbers, medians));
 		this.getChildren().add(button);
 		this.getChildren().add(new TableViewOfGEO<PopulationProperties>(value, numbers, medians));
