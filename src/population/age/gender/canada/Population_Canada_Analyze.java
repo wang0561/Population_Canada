@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -30,13 +31,13 @@ public class Population_Canada_Analyze extends Application {
 			+ "\nthe visualizations based on the category.***";
 
 	public static void main(String[] args) {
-	
+
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		
+
 		init(stage);
 	}
 
@@ -51,7 +52,7 @@ public class Population_Canada_Analyze extends Application {
 		numbers = (List<PopulationNum>) list.get(0);
 		medians = (List<PopulationMedian>) list.get(1);
 		stage.setTitle("Population by age and genders in Canada from 1971 - 2018");
-		Scene scene = new Scene(getHomePage(), 700, 600);
+		Scene scene = new Scene(getHomePage(), 1000, 800);
 
 		stage.setScene(scene);
 		stage.show();
@@ -61,7 +62,7 @@ public class Population_Canada_Analyze extends Application {
 		ScrollPane sp = new ScrollPane();
 		VBox vb = new VBox();
 		HBox hb = new HBox();
-		
+
 		hb.setSpacing(10);
 		hb.setPadding(new Insets(10));
 		hb.setStyle("-fx-background-color: #ffffff;" + "-fx-border-style:solid inside;" + "-fx-border-width:3;");
@@ -71,25 +72,24 @@ public class Population_Canada_Analyze extends Application {
 		hb.getChildren().add(genderPaneOnHomePage());
 		sp.setContent(hb);
 		sp.setFitToWidth(true);
-		
+
 		Text text = new Text(TITLE);
 		text.setFont(Font.font(14));
 		vb.getChildren().add(text);
 		vb.getChildren().add(sp);
-		
+
 		return vb;
-		
 	}
 
 	private Node agePaneOnHomePage() {
-	
+
 		VBox vb = new VBox();
 		vb.setSpacing(10);
 		vb.setPadding(new Insets(10));
 		vb.getChildren().add(ageTitleOnHomePage());
 		vb.getChildren().add(groupOfAgeOnHomePage());
 		return vb;
-		
+
 	}
 
 	private Node groupOfAgeOnHomePage() {
@@ -99,17 +99,14 @@ public class Population_Canada_Analyze extends Application {
 		List<String> list = getAgeArray();
 		Text[] ages = new Text[list.size()];
 
-		for(int i = 0; i< ages.length; i++) {
+		for (int i = 0; i < ages.length; i++) {
 
 			final int temp = i;
-			ages[i] = new Text(list.get(i)+"");
+			ages[i] = new Text(list.get(i) + "");
 			ages[i].setUnderline(true);
 			ages[i].setOnMouseClicked(mouseEvent -> {
-				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-					if (mouseEvent.getClickCount() == 2) {
-						openPageByAgeInput(list.get(temp));
-					}
-				}
+				if (mouseClicked(mouseEvent))
+					openPageByAgeInput(list.get(temp));
 			});
 
 		}
@@ -119,16 +116,16 @@ public class Population_Canada_Analyze extends Application {
 
 	private void openPageByAgeInput(String age) {
 		Stage stage = new Stage();
-		Scene scene = new Scene(TableViewOfAge(age), 800,600);
+		Scene scene = new Scene(TableViewOfAge(age), 800, 600);
 		stage.setScene(scene);
-		stage.setTitle("AGE GROUP:  "+ age);
+		stage.setTitle("AGE GROUP:  " + age);
 		stage.show();
-		
+
 	}
 
 	private Parent TableViewOfAge(String age) {
-	
-		return new TableViewPageBuilder(TableType.AGEGROUP,age,numbers,medians);
+
+		return new TableViewPageBuilder(TableType.AGEGROUP, age, numbers, medians);
 	}
 
 	private Node ageTitleOnHomePage() {
@@ -154,19 +151,15 @@ public class Population_Canada_Analyze extends Application {
 		List<String> list = getGenderArray();
 		Text[] genders = new Text[list.size()];
 
-		for(int i = 0; i< genders.length; i++) {
+		for (int i = 0; i < genders.length; i++) {
 
 			final int temp = i;
-			genders[i] = new Text(list.get(i)+"");
+			genders[i] = new Text(list.get(i) + "");
 			genders[i].setUnderline(true);
 			genders[i].setOnMouseClicked(mouseEvent -> {
-				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-					if (mouseEvent.getClickCount() == 2) {
-						openPageByGenderInput(list.get(temp));
-					}
-				}
+				if (mouseClicked(mouseEvent))
+					openPageByGenderInput(list.get(temp));
 			});
-
 		}
 		vb.getChildren().addAll(genders);
 		return vb;
@@ -174,16 +167,16 @@ public class Population_Canada_Analyze extends Application {
 
 	private void openPageByGenderInput(String gender) {
 		Stage stage = new Stage();
-		Scene scene = new Scene(TableViewOfGender(gender), 800,600);
+		Scene scene = new Scene(TableViewOfGender(gender), 800, 600);
 		stage.setScene(scene);
-		stage.setTitle("GENDER:  "+ gender);
+		stage.setTitle("GENDER:  " + gender);
 		stage.show();
-		
+
 	}
 
 	private Parent TableViewOfGender(String gender) {
-		
-		return new TableViewPageBuilder(TableType.GENDER,gender,numbers,medians);
+
+		return new TableViewPageBuilder(TableType.GENDER, gender, numbers, medians);
 	}
 
 	private Node genderTitleOnHomePage() {
@@ -208,19 +201,15 @@ public class Population_Canada_Analyze extends Application {
 		List<String> list = getGEOArray();
 		Text[] GEOS = new Text[list.size()];
 
-		for(int i = 0; i< GEOS.length; i++) {
+		for (int i = 0; i < GEOS.length; i++) {
 
 			final int temp = i;
-			GEOS[i] = new Text(list.get(i)+"");
+			GEOS[i] = new Text(list.get(i) + "");
 			GEOS[i].setUnderline(true);
 			GEOS[i].setOnMouseClicked(mouseEvent -> {
-				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-					if (mouseEvent.getClickCount() == 2) {
-						openPageByGEOInput(list.get(temp));
-					}
-				}
+				if (mouseClicked(mouseEvent))
+					openPageByGEOInput(list.get(temp));
 			});
-
 		}
 		vb.getChildren().addAll(GEOS);
 		return vb;
@@ -228,20 +217,20 @@ public class Population_Canada_Analyze extends Application {
 
 	private void openPageByGEOInput(String GEO) {
 		Stage stage = new Stage();
-		Scene scene = new Scene(TableViewOfGEO(GEO), 800,600);
+		Scene scene = new Scene(TableViewOfGEO(GEO), 800, 600);
 		stage.setScene(scene);
-		stage.setTitle("GEO:  "+ GEO);
+		stage.setTitle("GEO:  " + GEO);
 		stage.show();
 
 	}
 
 	private Parent TableViewOfGEO(String gEO) {
-	
-		return new TableViewPageBuilder(TableType.GEO,gEO,numbers,medians);
+
+		return new TableViewPageBuilder(TableType.GEO, gEO, numbers, medians);
 	}
 
 	private Node GEOTitleOnHomePage() {
-	
+
 		Text text = new Text("GEO");
 		text.setFont(Font.font(16));
 		return text;
@@ -255,15 +244,12 @@ public class Population_Canada_Analyze extends Application {
 		Text[] years = new Text[list.size()];
 
 		for (int i = 0; i < years.length; i++) {
-			final int temp = i ;
+			final int temp = i;
 			years[i] = new Text(list.get(i) + "");
 			years[i].setUnderline(true);
 			years[i].setOnMouseClicked(mouseEvent -> {
-				if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-					if (mouseEvent.getClickCount() == 2) {
-						openPageByYearInput(list.get(temp));
-					}
-				}
+				if (mouseClicked(mouseEvent))
+					openPageByYearInput(list.get(temp));
 			});
 		}
 		vb.getChildren().addAll(years);
@@ -272,21 +258,22 @@ public class Population_Canada_Analyze extends Application {
 
 	private void openPageByYearInput(Integer year) {
 		Stage stage = new Stage();
-		Scene scene = new Scene(TableViewofYear(year), 800,600);
+		Scene scene = new Scene(TableViewofYear(year), 800, 600);
 		stage.setScene(scene);
-		stage.setTitle("Year: "+ year);
+		stage.setTitle("Year: " + year);
 		stage.show();
 	}
+
 	/*
 	 * return a table view and visualization button for Year page
-	 * */
+	 */
 	private Parent TableViewofYear(Integer year) {
-		
+
 		return new TableViewPageBuilder(year, numbers, medians);
 	}
 
 	private Node YearTitleOnHomePage() {
-		
+
 		Text text = new Text("YEAR");
 		text.setFont(Font.font(16));
 		return text;
@@ -316,25 +303,29 @@ public class Population_Canada_Analyze extends Application {
 		List<String> list = new ArrayList<>();
 		list.addAll(set);
 		Collections.sort(list);
-		//System.out.println(list);
+		// System.out.println(list);
 		return list;
 	}
-	
-	private List<String> getGenderArray(){
+
+	private List<String> getGenderArray() {
 		Set<String> set = medians.stream().collect(Collectors.groupingBy(PopulationMedian::getGender)).keySet();
 		List<String> list = new ArrayList<>();
 		list.addAll(set);
 		Collections.sort(list);
-		//System.out.println(list);
+		// System.out.println(list);
 		return list;
 	}
-	private List<String> getAgeArray(){
+
+	private List<String> getAgeArray() {
 		Set<String> set = numbers.stream().collect(Collectors.groupingBy(PopulationNum::getAgeGroup)).keySet();
 		List<String> list = new ArrayList<>();
 		list.addAll(set);
 		Collections.sort(list);
-		//System.out.println(list);
+		// System.out.println(list);
 		return list;
 	}
 
+	private boolean mouseClicked(MouseEvent mouseEvent) {
+		return mouseEvent.getButton().equals(MouseButton.PRIMARY) && mouseEvent.getClickCount() == 2;
+	}
 }
